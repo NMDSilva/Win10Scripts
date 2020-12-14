@@ -68,7 +68,7 @@ $funcoes = @(
   "DesinstalarXPSPrinter",
   "RemoverFaxPrinter",
   ### Reiniciar PC
-  "Reiniciar"
+  # "Reiniciar"
 )
 
 ############################################
@@ -108,13 +108,13 @@ Function Mostrar-Menu-Choco {
     Clear-Host
     Write-Host "================ $Title ================"
     Write-Host "S: Pressione 'S' para instalar."
-    Write-Host "N: Pressione 'N' para não instalar."
+    Write-Host "N: Pressione 'N' para nao instalar."
     Write-Host "Q: Pressione 'Q' para para todo o script."
-    $selection = Read-Host "Escolha uma opção"
+    $selection = Read-Host "Escolha uma opcao"
     switch ($selection) {
       'y' { choco install $ChocoInstall -y }
       'n' { Break }
-      'q' { Exit  }
+      'q' { Exit }
     }
   } Until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
 }
@@ -184,7 +184,7 @@ Function DesinstalarWinApps {
     "*Dolby*"
   )
   foreach ($App in $RemoveApps) {
-    Get-AppxPackage -Name $App| Remove-AppxPackage
+    Get-AppxPackage -Name $App | Remove-AppxPackage
     Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $App | Remove-AppxProvisionedPackage -Online
     Write-Output "Tentando remover $App."
   }
@@ -235,7 +235,7 @@ Function DesativarWebSearch {
 
 # Desativar Aplicação sugestões e atualizações automáticas
 Function DesativarAppSuggestions {
-  Write-Output "Desativando Aplicação Sugestões..."
+  Write-Output "Desativando Aplicacao Sugestoes..."
   Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "ContentDeliveryAllowed" -Type DWord -Value 0
   Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "OemPreInstalledAppsEnabled" -Type DWord -Value 0
   Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "PreInstalledAppsEnabled" -Type DWord -Value 0
@@ -254,7 +254,7 @@ Function DesativarAppSuggestions {
 
 # Desativar acesso de aplicações em background
 Function DesativarBackgroundApps {
-  Write-Output "Desativando acesso de aplicações em background..."
+  Write-Output "Desativando acesso de aplicacoes em background..."
   Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" -Exclude "Microsoft.Windows.Cortana*" | ForEach {
     Set-ItemProperty -Path $_.PsPath -Name "Disabled" -Type DWord -Value 1
     Set-ItemProperty -Path $_.PsPath -Name "DisabledByUser" -Type DWord -Value 1
@@ -339,7 +339,7 @@ Function DesativarErrorReporting {
 
 # Parar e desativar serviço de Diagnostics Tracking
 Function DesativarDiagTrack {
-  Write-Output "Parando e desativando serviço de Diagnostics Tracking..."
+  Write-Output "Parando e desativando servico de Diagnostics Tracking..."
   Stop-Service "DiagTrack" -WarningAction SilentlyContinue
   Set-Service "DiagTrack" -StartupType Disabled
 }
@@ -379,7 +379,8 @@ Function AtivarDefender {
   Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -ErrorAction SilentlyContinue
   If ([System.Environment]::OSVersion.Version.Build -eq 14393) {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "WindowsDefender" -Type ExpandString -Value "`"%ProgramFiles%\Windows Defender\MSASCuiL.exe`""
-  } ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
+  }
+  ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "SecurityHealth" -Type ExpandString -Value "`"%ProgramFiles%\Windows Defender\MSASCuiL.exe`""
   }
 }
@@ -412,13 +413,13 @@ Function DesativarStorageSense {
 
 # Desativar tarefa de desfragmentação
 Function DesativarDefragmentation {
-  Write-Output "Desativando tarefa de desfragmentação..."
+  Write-Output "Desativando tarefa de desfragmentacao..."
   Disable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" | Out-Null
 }
 
 # Iniciar e ativar serviço de indexação do Windows Search
 Function AtivarIndexing {
-  Write-Output "Iniciando e ativando o serviço de indexação do Windows Search..."
+  Write-Output "Iniciando e ativando o servico de indexacao do Windows Search..."
   Set-Service "WSearch" -StartupType Automatic
   Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WSearch" -Name "DelayedAutoStart" -Type DWord -Value 1
   Start-Service "WSearch" -WarningAction SilentlyContinue
@@ -426,7 +427,7 @@ Function AtivarIndexing {
 
 # Desativar Hibernação
 Function DesativarHibernation {
-  Write-Output "Desativando Hibernação..."
+  Write-Output "Desativando Hibernacao..."
   Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Power" -Name "HibernteEnabled" -Type Dword -Value 0
   If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings")) {
     New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" | Out-Null
@@ -474,7 +475,7 @@ Function DefinirFileOperationsDetails {
 
 # Desativar caixa de confirmação para eliminar ficheiros
 Function DesativarFileDeleteConfirm {
-  Write-Output "Desativando caixa de confirmação para eliminar ficheiros..."
+  Write-Output "Desativando caixa de confirmacao para eliminar ficheiros..."
   Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "ConfirmFileDelete" -ErrorAction SilentlyContinue
 }
 
@@ -549,7 +550,7 @@ Function AtivarDarkMode {
 
 # Mostrar extensões de ficheiros conhecidos
 Function MostrarKnownExtensions {
-  Write-Output "Mostrando extensões de ficheiros conhecidos..."
+  Write-Output "Mostrando extensoes de ficheiros conhecidos..."
   Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
 }
 
@@ -561,7 +562,7 @@ Function EsconderHiddenFiles {
 
 # Esconder notificações de sincronização
 Function EsconderSyncNotifications {
-  Write-Output "Escondendo notificações de sincronização..."
+  Write-Output "Escondendo notificacoes de sincronizacao..."
   Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowSyncProviderNotifications" -Type DWord -Value 0
 }
 
@@ -606,7 +607,7 @@ Function MostrarUserFolderOnDesktop {
 
 # Esconder icon Música de Este PC e barra de acesso do Explorer
 Function EsconderAtalhoMusica {
-  Write-Output "Escondendo icon Música de Este PC e barra de acesso do Explorer..."
+  Write-Output "Escondendo icon Musica de Este PC e barra de acesso do Explorer..."
   Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Recurse -ErrorAction SilentlyContinue
   Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Recurse -ErrorAction SilentlyContinue
   Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
@@ -615,7 +616,7 @@ Function EsconderAtalhoMusica {
 
 # Esconder icon Vídeos de Este PC e barra de acesso do Explorer
 Function EsconderAtalhoVideos {
-  Write-Output "Escondendo icon Vídeos de Este PC e barra de acesso do Explorer..."
+  Write-Output "Escondendo icon Videos de Este PC e barra de acesso do Explorer..."
   Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Recurse -ErrorAction SilentlyContinue
   Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Recurse -ErrorAction SilentlyContinue
   Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
@@ -642,7 +643,7 @@ Function EsconderAtalhoObjetos3D {
 
 # Desinstalar Aplicações Microsoft desnecessárias
 Function DesinstalarMsftBloat {
-  Write-Output "Desinstalando Aplicações Microsoft desnecessárias..."
+  Write-Output "Desinstalando Aplicacoes Microsoft desnecessarias..."
   Get-AppxPackage "Microsoft.3DBuilder" | Remove-AppxPackage
   Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
   Get-AppxPackage "Microsoft.BingFinance" | Remove-AppxPackage
@@ -678,7 +679,7 @@ Function DesinstalarMsftBloat {
 
 # Desinstalar Outras aplicações desnecessárias instaladas por defeito
 Function DesinstalarThirdPartyBloat {
-  Write-Output "Desinstalando Outras aplicações desnecessárias instaladas por defeito..."
+  Write-Output "Desinstalando outras aplicacoes desnecessarias instaladas por defeito..."
   Get-AppxPackage "2414FC7A.Viber" | Remove-AppxPackage
   Get-AppxPackage "41038Axilesoft.ACGMediaPlayer" | Remove-AppxPackage
   Get-AppxPackage "46928bounde.EclipseManager" | Remove-AppxPackage
@@ -712,7 +713,7 @@ Function DesinstalarThirdPartyBloat {
 
 # Desativar utilitários Xbox
 Function DesativarXboxFeatures {
-  Write-Output "Desativando utilitários Xbox..."
+  Write-Output "Desativando utilitarios Xbox..."
   Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
   Get-AppxPackage "Microsoft.XboxIdentityProvider" | Remove-AppxPackage -ErrorAction SilentlyContinue
   Get-AppxPackage "Microsoft.XboxSpeechToTextOverlay" | Remove-AppxPackage
