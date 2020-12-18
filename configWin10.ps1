@@ -112,11 +112,11 @@ Function Mostrar-Menu-Choco {
     Write-Host "Q: Pressione 'Q' para para todo o script."
     $selection = Read-Host "Escolha uma opcao"
     switch ($selection) {
-      'y' { choco install $ChocoInstall -y }
+      's' { choco install $ChocoInstall -y }
       'n' { Break }
       'q' { Exit }
     }
-  } Until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+  } Until ($selection -match "s" -or $selection -match "n" -or $selection -match "q")
 }
 
 Function InstalarProgramas {
