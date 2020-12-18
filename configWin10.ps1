@@ -66,7 +66,7 @@ $funcoes = @(
   "InstalarMediaPlayer",
   "InstalarPDFPrinter",
   "DesinstalarXPSPrinter",
-  "RemoverFaxPrinter",
+  "RemoverFaxPrinter"
   ### Reiniciar PC
   # "Reiniciar"
 )
