@@ -109,3 +109,10 @@ git config --global user.email "Nuno.D.Silva@seg-social.pt"
 
 npm install -g yo generator-code
 npm install -g vsce
+
+
+$Action = New-ScheduledTaskAction -Execute 'diskpart' -Argument '/s D:\VHD\ns198422\montar_vhdx.txt'
+$Trigger = New-ScheduledTaskTrigger -AtLogOn -User 'acores\ns198422'
+$Settings = New-ScheduledTaskSettingsSet
+$Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Settings $Settings
+Register-ScheduledTask -InputObject $Task -TaskName 'Montar Disco'
