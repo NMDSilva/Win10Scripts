@@ -1,6 +1,6 @@
 # Localização execução
-$disco = 'd'
-$path = $disco':\configs'
+$disco = "d'
+$path = "$disco:\configs"
 $printer = "\\172.28.128.26\SafeQ Printer"
 $url = "https://gist.githubusercontent.com/NMDSilva/fa95797c747b6ddacb696abc5c43e062/raw/bfea8161559ac96b9fbd3f2954931e0bd821ca5e/settings.json"
 
