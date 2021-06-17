@@ -1,6 +1,6 @@
 # Localização execução
-$disco = "d"
-$path = "$disco:\configs"
+
+$path = "d:\configs"
 $printer = "\\172.28.128.26\SafeQ Printer"
 $url = "https://gist.githubusercontent.com/NMDSilva/fa95797c747b6ddacb696abc5c43e062/raw/bfea8161559ac96b9fbd3f2954931e0bd821ca5e/settings.json"
 
@@ -11,8 +11,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://cho
 # Suprimir a necessidade da flag -y em todas as linhas de instalação
 choco feature enable -n allowGlobalConfirmation
 
-$wc = New-Object System.Net.WebClient
-$wc.DownloadFile($url, "$env:appdata\code\User\settings.json")
+(New-Object System.Net.WebClient).DownloadFile($url, "$env:appdata\code\User\settings.json")
 
 # Instalar Fonts
 & $path'\Add-Font.ps1' @("$path\apps\fonts")
@@ -29,6 +28,7 @@ Copy-Item $path\IPFixo.ps1 -Destination $env:windir\system32
 Copy-Item $path\IPAuto.ps1 -Destination $env:windir\system32
 
 # Copiar chaves SSH para .ssh
+New-Item -Path $env:userprofile\.ssh -ItemType Directory
 Copy-Item $path\ssh\* -Destination $env:userprofile\.ssh
 
 # Instalar programas
@@ -56,7 +56,9 @@ refreshenv
 wsl --set-default-version 2
 
 # Install WinGet
-Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/download/v1.0.11451/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle" -OutFile "$path\apps\WinGet.appxbundle"
+(New-Object System.Net.WebClient).DownloadFile("https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx", "$path\apps\Microsoft.VCLibs.x64.14.00.Desktop.appx")
+Add-AppxPackage "$path\apps\Microsoft.VCLibs.x64.14.00.Desktop.appx"
+(New-Object System.Net.WebClient).DownloadFile("https://github.com/microsoft/winget-cli/releases/download/v1.0.11451/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle", "$path\apps\WinGet.appxbundle")
 Add-AppxPackage "$path\apps\WinGet.appxbundle"
 
 # https://winstall.app/
