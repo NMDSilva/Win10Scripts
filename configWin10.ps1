@@ -123,17 +123,7 @@ Function InstalarProgramas {
   Write-Output "Instalando Chocolatey"
   Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
   choco install chocolatey-core.extension -y
-  Mostrar-Menu-Choco -Title "Quer instalar o Adobe Acrobat Reader?" -ChocoInstall "adobereader"
-  Mostrar-Menu-Choco -Title "Quer instalar o 7-Zip?" -ChocoInstall "7zip"
-  Mostrar-Menu-Choco -Title "Quer instalar o WinRAR?" -ChocoInstall "winrar"
-  Mostrar-Menu-Choco -Title "Quer instalar o VLC?" -ChocoInstall "vlc"
-  Mostrar-Menu-Choco -Title "Quer instalar o Irfanview?" -ChocoInstall "irfanview"
-  Mostrar-Menu-Choco -Title "Quer instalar o Google Chrome?" -ChocoInstall "googlechrome"
-  Mostrar-Menu-Choco -Title "Quer instalar o Firefox?" -ChocoInstall "firefox"
-  Mostrar-Menu-Choco -Title "Quer instalar o Notepad++?" -ChocoInstall "notepadplusplus"
-  Mostrar-Menu-Choco -Title "Quer instalar o Java Runtime?" -ChocoInstall "javaruntime"
-  Mostrar-Menu-Choco -Title "Quer instalar o Office 365 Pro Plus?" -ChocoInstall "office365proplus"
-  Clear-Host
+  choco install adobereader 7zip vlc googlechrome -y
 }
 
 #######################################
