@@ -54,6 +54,10 @@ Function ConfiguracoesBase {
     Add-Printer -ConnectionName $printer # Adicionar Impressora
     (New-Object -COM WScript.Network).SetDefaultPrinter($printer) # PrÃ©-definir Impressora
 
+    # Mudar Menu de contexto para forma antiga
+    New-Item -Path HKCU:\SOFTWARE\CLASSES\CLSID -Name "{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}"
+    New-Item -Path "HKCU:\SOFTWARE\CLASSES\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" -Name "InprocServer32" -value ""
+
     # Definir Pasta de download para disco D:
     Import-Module $path\ChangeWinDefaultDownloadPath.psm1
     ChangeWinDefaultDownloadPath -DownloadPath $disco':\Downloads'
