@@ -98,7 +98,7 @@ Function ConfiguracoesBase {
       "Isolada",
       "ISSA",
       "NAI",
-      "Processsamentos",
+      "Processamentos",
       "RIAC",
       "Uploads"
     )
@@ -107,7 +107,7 @@ Function ConfiguracoesBase {
       "Arquivo",
       "C#",
       "ISSA32",
-      "ProcesssamentosX32",
+      "ProcessamentosX32",
       "SGA"
     )
 
