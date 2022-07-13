@@ -80,6 +80,14 @@ Function ConfiguracoesBase {
 
     # Enable the Windows Subsystem for Linux
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-WebServer /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-WindowsAuthentication /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-BasicAuthentication /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-HttpRedirect /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-ASP /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-ASPNET /all /norestart
+    dism.exe /online /enable-feature /featurename:IIS-ASPNET45 /all /norestart
+
 
     # Set WSL 2 as your default version
     wsl --set-default-version 2
