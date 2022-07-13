@@ -88,6 +88,49 @@ Function ConfiguracoesBase {
     dism.exe /online /enable-feature /featurename:IIS-ASPNET /all /norestart
     dism.exe /online /enable-feature /featurename:IIS-ASPNET45 /all /norestart
 
+    # Configurar IIS
+    Import-Module WebAdministration
+
+    $pools = @(
+      "BDSISS",
+      "CRP",
+      "II",
+      "Isolada",
+      "ISSA",
+      "NAI",
+      "Processsamentos",
+      "RIAC",
+      "Uploads"
+    )
+
+    $poolsX32 = @(
+      "Arquivo",
+      "C#",
+      "ISSA32",
+      "ProcesssamentosX32",
+      "SGA"
+    )
+
+    Set-ItemProperty "IIS:\Sites\Default Web Site\" -name physicalPath -value "D:\aplicacoes\"
+
+    $sitePath = "D:\aplicacoes\AI"
+
+    $pools | ForEach {
+      New-WebAppPool –Name $_
+      New-WebApplication -Name $_ -Site "Default Web Site" -PhysicalPath $sitePath -ApplicationPool $_
+    }
+
+    $poolsX32 | ForEach {
+      New-WebAppPool –Name $_
+      Set-ItemProperty IIS:\apppools\$_ -name "enable32BitAppOnWin64" -Value "true"
+      New-WebApplication -Name $_ -Site "Default Web Site" -PhysicalPath $sitePath -ApplicationPool $_
+    }
+
+    Rename-Item "IIS:\Sites\Default Web Site\II" "AI"
+    Rename-Item "IIS:\Sites\Default Web Site\Arquivo" "AIArquivo"
+    Rename-Item "IIS:\Sites\Default Web Site\c#" "AplicacoesCSharp"
+
+    Rename-Item "IIS:\Sites\Default Web Site" "Aplicacoes"
 
     # Set WSL 2 as your default version
     wsl --set-default-version 2
