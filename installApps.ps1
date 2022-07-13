@@ -130,6 +130,8 @@ Function ConfiguracoesBase {
     Rename-Item "IIS:\Sites\Default Web Site\Arquivo" "AIArquivo"
     Rename-Item "IIS:\Sites\Default Web Site\c#" "AplicacoesCSharp"
 
+    Start-IISSite -Name "Default Web Site"
+
     Rename-Item "IIS:\Sites\Default Web Site" "Aplicacoes"
 
     # Set WSL 2 as your default version
