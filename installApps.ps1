@@ -139,24 +139,25 @@ Function ConfiguracoesBase {
 
     # https://winstall.app/
     # Install Apps from WinGet
-    winget install -e --id=Microsoft.WindowsTerminal
-    winget install -e --id=Microsoft.VisualStudioCode
-    winget install -e --id=VideoLAN.VLC
-    winget install -e --id=7zip.7zip
-    winget install -e --id=OpenJS.NodeJS
-    winget install -e --id=Python.Python.3
-    winget install -e --id=SmartBear.SoapUIOpenSource
-    winget install -e --id=Microsoft.PowerToys
-    winget install -e --id=Microsoft.PowerShell
-    winget install -e --id=Microsoft.SQLServerManagementStudio
-    winget install -e --id=Docker.DockerDesktop
-    winget install -e --id=AnyDeskSoftwareGmbH.AnyDesk
-    winget install -e --id=Git.Git -v 2.32.0
-    winget install -e --id=Devolutions.RemoteDesktopManager
-    winget install -e --id=TeamViewer.TeamViewer
-    winget install -e --id=Insomnia.Insomnia
-    winget install -e --id=WinSCP.WinSCP
-    winget install -e --id=TimKosse.FileZillaClient
+    winget install -e --id Microsoft.WindowsTerminal
+    winget install -e --id Microsoft.VisualStudioCode
+    winget install -e --id VideoLAN.VLC
+    winget install -e --id 7zip.7zip
+    winget install -e --id OpenJS.NodeJS
+    winget install -e --id Python.Python.3
+    winget install -e --id SmartBear.SoapUIOpenSource
+    winget install -e --id Microsoft.PowerToys
+    winget install -e --id Microsoft.PowerShell
+    winget install -e --id Microsoft.SQLServerManagementStudio
+    winget install -e --id Docker.DockerDesktop
+    winget install -e --id AnyDeskSoftwareGmbH.AnyDesk
+    winget install -e --id Git.Git -v 2.32.0
+    winget install -e --id Devolutions.RemoteDesktopManager
+    winget install -e --id TeamViewer.TeamViewer
+    winget install -e --id Insomnia.Insomnia
+    winget install -e --id WinSCP.WinSCP
+    winget install -e --id TimKosse.FileZillaClient
+    winget install -e --id SmartBear.SoapUI
 
     # Instalar outros programas
     & $path'\apps\ApexSQLRefactor.exe' @('/verysilent', '/norestart')
